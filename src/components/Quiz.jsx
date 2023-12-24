@@ -4,6 +4,7 @@ import QUESTION from "../question";
 import quizCompleteIcon from "../assets/quiz-complete.png";
 import QuestionTimer from "./QuestionTimer";
 import Answers from "./Answers";
+import Question from "./Question";
 
 export default function Quiz() {
   const [answerState, setAnswerState] = useState("");
@@ -56,20 +57,15 @@ export default function Quiz() {
 
   return (
     <div id="quiz">
-      <div id="question">
-        <QuestionTimer
-          key={activeQuestionIndex}
-          timeout={10000}
-          onTimeout={handleTimeout}
-        />
-        <h2>{QUESTION[activeQuestionIndex].text}</h2>
-        <Answers
-          answers={QUESTION[activeQuestionIndex].answers}
-          selectedAnswer={userAnswers[userAnswers.length - 1]}
-          answerState={answerState}
-          onSelect={handleSelectAnswer}
-        />
-      </div>
+      <Question
+        key={activeQuestionIndex}
+        answers={QUESTION[activeQuestionIndex].answers}
+        onSelectAnswer={handleSelectAnswer}
+        questionText={QUESTION[activeQuestionIndex].text}
+        selectedAnswer={userAnswers[userAnswers.length - 1]}
+        answerState={answerState}
+        onTimeout={handleTimeout}
+      />
     </div>
   );
 }
